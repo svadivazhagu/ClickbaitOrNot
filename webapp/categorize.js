@@ -2,7 +2,7 @@ var bayes = require('bayes')
 var fs = require('fs')
 var classifier = JSON.parse(fs.readFileSync('./state.json').toString());
 var revivedClassifier = bayes.fromJson(classifier)
-var videos = JSON.parse(fs.readFileSync('./videos.json').toString)
+var videos = JSON.parse(fs.readFileSync('./scraped_data.json').toString)
 
 function categorize(classifier, videos ) {
     /*
@@ -19,8 +19,8 @@ function categorize(classifier, videos ) {
     
     var results = []
     for (let i = 0; i<videos.length;i++) {
-        let category = classifier.categorize(videos[i][title]);
-        let video = {"title" : titles[i][title], "cateogry" : category};
+        let reaction = classifier.categorize(videos[i]["title"]);
+        let video = {"title" : titles[i][title], "reaction" : category};
         results.push(video)
     }
     return results;
