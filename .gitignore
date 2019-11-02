@@ -3,3 +3,8 @@ venv
 webapp/node_modules
 .idea/
 US_GB_merged.csv
+youtube-new/*
+.vscode/*
+*.zip
+test_img.png
+
