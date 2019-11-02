@@ -1,0 +1,12 @@
+{
+  "name": "Click Bait Identifier",
+  "version": "1.0",
+  "description": "Turn youtube titles red that are clickbait",
+  "manifest_version": 2,
+  "content_scripts": [
+    {
+      "matches": ["*://*.youtube.com/*"],
+      "js": ["run_classifier.js"]
+    }
+  ]
+}
