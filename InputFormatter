@@ -1,0 +1,24 @@
+import string
+arr = ['Nearly   Fired TWICE to Winning The SEC! | Mizzou 5-Year Rebuild | NCAA Football 14 (69/126)',
+'How to make Modern R&B Beats for Summer Walker & Bryson Tiller [Tutorial]',
+'Kanye West Airpool Karaoke',
+'Dreamville - Down Bad feat. J.I.D, Bas, J. Cole, EarthGang, & Young Nudy  (Official Music Video)',
+'Dolemite 1975 full movie']
+
+def myfunc(a): 
+    return a != ""
+        
+
+for w in arr:
+    #w.strip
+    #w.casefold
+    #transtab = maketrans(str.punctuation,'')
+    #w = w.translate(transtab)
+    
+    for x in string.punctuation:
+        w = w.replace(x," ")
+        w = w.lower();
+    a = w.split(' ')
+    a = filter(myfunc, a)
+    w = ' '.join(a)
+    print(w)
