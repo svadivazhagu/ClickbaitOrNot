@@ -51,16 +51,19 @@ class Application(Frame):
 
 
     def handleClickBait(self):
-        data.iloc[i]['isCB'] = True
+        data.at[i, 'isCB'] = True
+        self.getNextVideo()
 
     def handleNotClickBait(self):
-        data.loc[i]['isCB'] = False
+        data.loc[i, 'isCB'] = False
+        self.getNextVideo()
 
     def getNextVideo(self):
         global i
         i += 1
         self.create_widgets()
         self.innerFrame.destroy()
+        print(data.iloc[i].title, data.iloc[i].isCB)
 
         with open('tracker.txt', 'w') as _out:
             _out.write(str(i))
