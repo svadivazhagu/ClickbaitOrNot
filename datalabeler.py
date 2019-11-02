@@ -107,7 +107,10 @@ class Application(Frame):
 
 
 data = pd.read_csv('./youtube-new/USvideos.csv', header=[0])
-data.drop_duplicates(inplace=True)
+print(data.shape)
+data.drop_duplicates(subset='video_id', inplace=True)
+print(data.shape)
+
 data['isCB'] = 0
 with open('tracker.txt', 'r') as _in:
 
