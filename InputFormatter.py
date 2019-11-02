@@ -17,7 +17,6 @@ for i in range(df.shape[0]):
     w = df.iloc[i].title
     for x in string.punctuation:
         w = w.replace(x, " ")
-        w = w.lower()
     a = w.split(' ')
     a = filter(myfunc, a)
     w = ' '.join(a)
