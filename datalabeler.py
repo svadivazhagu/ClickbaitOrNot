@@ -1,12 +1,18 @@
 import pandas as pd
 import sys
 from tkinter import *
+import requests
+from io import BytesIO
+
 
 from PIL import Image, ImageTk
 
 
 def getImage(datarow):
-    return Image.open('test_img.png')
+    response = requests.get(
+        'https://img.youtube.com/vi/' + datarow['video_id']+'/0.jpg')
+    img = Image.open(BytesIO(response.content))
+    return img
 
 
 class ImageLabel():
@@ -23,20 +29,23 @@ class Application(Frame):
     def __init__(self, master=None):
         super().__init__(master)
         self.master = master
+        self.master.bind('<KeyPress>', self.handleKeyPress)
         self.pack()
         self.create_widgets()
 
         self.buttonFrame = Frame(self)
 
-        self.isCB = Button(self.buttonFrame, text="Click Bait",
+        self.isCB = Button(self.buttonFrame, text="Click Bait", height=10, width=10,
                            fg="red", command=self.handleClickBait)
-        self.notCB = Button(self.buttonFrame, text='Not CB',
+        self.notCB = Button(self.buttonFrame, text='Not CB', height=10, width=10,
                             command=self.handleNotClickBait)
+
+        self.remove = Button(self.buttonFrame, text='Remove', height=10, width=10, command=self.neither)
 
         self.isCB.pack(side='left')
         self.notCB.pack(side='right')
 
-        self.buttonFrame.pack()
+        self.buttonFrame.pack(side='top')
 
     def create_widgets(self):
         global i
@@ -47,29 +56,42 @@ class Application(Frame):
         self.title.pack(side="top")
         self.innerFrame.pack(side='top')
 
-        
-
+    def handleKeyPress(self, event):
+        if event.char == 'f':
+            self.handleClickBait()
+        elif (event.char == 'j'):
+            self.handleNotClickBait()
+        else:
+            self.neither()
 
     def handleClickBait(self):
         data.at[i, 'isCB'] = True
         self.getNextVideo()
 
     def handleNotClickBait(self):
-        data.loc[i, 'isCB'] = False
+        data.at[i, 'isCB'] = False
+        self.getNextVideo()
+
+    def neither(self):
+        
+        data.at[i, 'isCB'] = 2
         self.getNextVideo()
 
     def getNextVideo(self):
         global i
-        i += 1
-        self.create_widgets()
         self.innerFrame.destroy()
+        del self.img
+        del self.title
         print(data.iloc[i].title, data.iloc[i].isCB)
 
         with open('tracker.txt', 'w') as _out:
             _out.write(str(i))
         with open('output.csv', 'a') as _out:
-            _out.write(str(i), data.iloc[i]['isCB'])
-                
+            _out.write(str(i) + ',"' + data.iloc[i].title + '",' + str(data.iloc[i]['isCB']) + '\n')
+        i += 1
+
+        self.create_widgets()
+
 
 data = pd.read_csv('./youtube-new/USvideos.csv', header=[0])
 data['isCB'] = False
