@@ -106,7 +106,7 @@ class Application(Frame):
         self.create_widgets()
 
 
-data = pd.read_csv('./youtube-new/USvideos.csv', header=[0])
+data = pd.read_csv('./dataset/USvideos.csv', header=[0])
 print(data.shape)
 data.drop_duplicates(subset='video_id', inplace=True)
 print(data.shape)
