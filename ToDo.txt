@@ -1,0 +1,6 @@
+Given a list of titles
+- ['title1', 'title2', ...]
+- Remove punctuation (!@#$%^&*()?><:"{;}{_+} and more)
+- Make all lowercase
+- Only one space between words
+- 
