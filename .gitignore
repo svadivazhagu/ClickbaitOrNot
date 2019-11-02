@@ -1,4 +1,5 @@
 dataset
 venv
 webapp/node_modules
-webapp/package.json
+.idea/
+US_GB_merged.csv
