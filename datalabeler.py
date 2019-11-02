@@ -40,7 +40,8 @@ class Application(Frame):
         self.notCB = Button(self.buttonFrame, text='Not CB', height=10, width=10,
                             command=self.handleNotClickBait)
 
-        self.remove = Button(self.buttonFrame, text='Remove', height=10, width=10, command=self.neither)
+        self.remove = Button(self.buttonFrame, text='Remove',
+                             height=10, width=10, command=self.neither)
 
         self.isCB.pack(side='left')
         self.notCB.pack(side='right')
@@ -50,8 +51,15 @@ class Application(Frame):
     def create_widgets(self):
         global i
         self.innerFrame = Frame(self)
-        self.title = Label(self.innerFrame, text=data.iloc[i].title)
-        self.img = ImageLabel(self.innerFrame, getImage(data.iloc[i]))
+        try:
+            self.title = Label(self.innerFrame, text=data.iloc[i].title)
+            img = getImage(data.iloc[i])
+        except:
+            i += 1
+            self.create_widgets()
+            return
+
+        self.img = ImageLabel(self.innerFrame, img)
 
         self.title.pack(side="top")
         self.innerFrame.pack(side='top')
@@ -65,17 +73,21 @@ class Application(Frame):
             self.neither()
 
     def handleClickBait(self):
-        data.at[i, 'isCB'] = True
+        data.at[i, 'isCB'] = 1
         self.getNextVideo()
 
     def handleNotClickBait(self):
-        data.at[i, 'isCB'] = False
+        data.at[i, 'isCB'] = 0
         self.getNextVideo()
 
     def neither(self):
-        
+        global i
         data.at[i, 'isCB'] = 2
-        self.getNextVideo()
+        self.innerFrame.destroy()
+        del self.img
+        del self.title
+        i += 1
+        self.create_widgets()
 
     def getNextVideo(self):
         global i
@@ -87,14 +99,15 @@ class Application(Frame):
         with open('tracker.txt', 'w') as _out:
             _out.write(str(i))
         with open('output.csv', 'a') as _out:
-            _out.write(str(i) + ',"' + data.iloc[i].title + '",' + str(data.iloc[i]['isCB']) + '\n')
+            _out.write(
+                str(i) + ',"' + data.iloc[i].title + '",' + str(data.iloc[i]['isCB']) + '\n')
         i += 1
 
         self.create_widgets()
 
 
 data = pd.read_csv('./youtube-new/USvideos.csv', header=[0])
-data['isCB'] = False
+data['isCB'] = 0
 with open('tracker.txt', 'r') as _in:
 
     i = int(_in.read())
