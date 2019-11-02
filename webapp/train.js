@@ -10,7 +10,7 @@ var classifier = bayes()
 */
 
 function trainClassifier(data_fp){
-    var data = JSON.parse(fs.readFileSync('./data.json').toString());
+    var data = JSON.parse(fs.readFileSync('./labeled_data.json').toString());
     for (var i = 0; i< data.length; i++){
         classifier.learn(data[i].title, data[i].reaction)
     }
