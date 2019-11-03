@@ -12,7 +12,7 @@ We leveraged the open-source [Bayes](https://github.com/ttezel/bayes) library fo
 - Scraper function runs and collects metadata about videos in current view.
 - Data is processed and text analysis/modification is performed allowing punctuation and the ratio of capitalization to be included at the end of the string.
 - Processed video title is sent into the Naive Bayes classifier to have an output determined.
-- Output boolean (clickbait/non-clickbait) is sent back up to front-end and HTML element corresponding to the video's title is modified as per the classifier's decision (red = clickbait, green = not).
+- Output boolean (clickbait/non-clickbait) is sent back up to front-end and HTML element corresponding to the video's title is modified as per the classifier's decision (red = clickbait).
 - When more YouTube videos are loaded (i.e. scrolling down on feed, searching) this workflow is run again. 
 
 
