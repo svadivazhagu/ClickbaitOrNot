@@ -7,3 +7,4 @@ youtube-new/*
 .vscode/*
 *.zip
 test_img.png
+.ipynb_checkpoints
