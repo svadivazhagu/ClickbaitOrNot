@@ -1,7 +1,7 @@
 import string
 import pandas as pd
 
-df = pd.read_csv("outputwithheader.csv", header=[0])
+df = pd.read_csv("output.csv", names=['index', 'title', 'reaction'])
 oldArr  = ['Nearly   Fired TWICE to Winning The SEC! | Mizzou 5-Year Rebuild | NCAA Football 14 (69/126)',
        'How to make Modern R&B Beats for Summer Walker & Bryson Tiller [Tutorial]',
        'Kanye West Airpool Karaoke',
@@ -17,7 +17,7 @@ for i in range(df.shape[0]):
     w = df.iloc[i].title
     for x in string.punctuation:
         w = w.replace(x, " ")
-        w = w.lower()
+        # w = w.lower()
     a = w.split(' ')
     a = filter(myfunc, a)
     w = ' '.join(a)

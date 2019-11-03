@@ -73,16 +73,16 @@ class Application(Frame):
             self.neither()
 
     def handleClickBait(self):
-        data.at[i, 'isCB'] = 1
+        data.at[i, 'isCB'] = 'cb'
         self.getNextVideo()
 
     def handleNotClickBait(self):
-        data.at[i, 'isCB'] = 0
+        data.at[i, 'isCB'] = 'notcb'
         self.getNextVideo()
 
     def neither(self):
         global i
-        data.at[i, 'isCB'] = 2
+        data.at[i, 'isCB'] = 'neither'
         self.innerFrame.destroy()
         del self.img
         del self.title
@@ -106,12 +106,12 @@ class Application(Frame):
         self.create_widgets()
 
 
-data = pd.read_csv('./dataset/USvideos.csv', header=[0])
+data = pd.read_csv('./youtube-new/USvideos.csv', header=[0])
 print(data.shape)
 data.drop_duplicates(subset='video_id', inplace=True)
 print(data.shape)
 
-data['isCB'] = 0
+data['isCB'] = 'notcb'
 with open('tracker.txt', 'r') as _in:
 
     i = int(_in.read())

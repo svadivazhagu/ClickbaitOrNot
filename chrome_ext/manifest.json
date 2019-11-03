@@ -8,5 +8,10 @@
       "matches": ["*://*.youtube.com/*"],
       "js": ["run_classifier.js"]
     }
-  ]
+  ],
+  "web_accessible_resources": [
+    "main.js",
+    "my-script.js",
+    "bayes.js"
+ ]
 }

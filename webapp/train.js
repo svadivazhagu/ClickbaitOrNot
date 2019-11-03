@@ -1,4 +1,4 @@
-var bayes = require('../chrome_ext/node_modules/bayes')
+var bayes = require('bayes')
 var fs = require('fs')
 
 
@@ -24,3 +24,5 @@ function trainClassifier(data_fp){
 }
 
 trainClassifier()
+
+classifier.categorize('when you drop your phone while the screen is unlocked')
