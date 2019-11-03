@@ -1,8 +1,8 @@
-var bayes = require(bayes)
+var bayes = require('./naive_bayes')
 var fs = require('fs')
 
 
-var classifier = bayes()
+var classifier =  bayes()
 
 /* create a function where (labeled data):
     -> @param json file, each elt is [title, reaction] -> [str, str]
@@ -10,7 +10,7 @@ var classifier = bayes()
 */
 
 function trainClassifier(data_fp){
-    var data = JSON.parse(fs.readFileSync('./labeled_data.json').toString());
+    var data = JSON.parse(fs.readFileSync('../new_formatted.json').toString());
     for (var i = 0; i< data.length; i++){
         classifier.learn(data[i].title, data[i].reaction)
     }
@@ -22,3 +22,5 @@ function trainClassifier(data_fp){
         }
     });
 }
+
+trainClassifier()

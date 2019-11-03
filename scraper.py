@@ -16,6 +16,9 @@ for i, j in merged.iterrows():
     response = requests.get('https://img.youtube.com/vi/'+j['video_id']+'/0.jpg')
     img = Image.open(BytesIO(response.content))
     #can use img.show() to reveal the image in each loop.
+    img.show()
+
+
 
 
 
